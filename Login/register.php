@@ -91,7 +91,7 @@ if (isset($_POST["Register"])) {
                             <?php
                             if (!empty($error_info)) { ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     <?= $error_info ?>
                                 </div>
                             <?php } ?>
