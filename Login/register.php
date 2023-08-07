@@ -12,6 +12,15 @@ if (isset($_POST["Register"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $confirm = $_POST["confirmPass"];
+    $profilePic = PATHINFO($_FILES["photo"]["name"]);
+
+    if (empty($profilePic['filename'])) {
+        $location = "";
+    } else {
+        $newFilename = $profilePic['filename'] . "_" . time() . "." . $profilePic['extension'];
+        move_uploaded_file($_FILES["photo"]["tmp_name"], "../img/profilePic/" . $newFilename);
+        $location = "../img/profilePic/" . $newFilename;
+    }
 
     $error_info = "";
 
@@ -19,8 +28,8 @@ if (isset($_POST["Register"])) {
         $result = $conn->query("SELECT * FROM user WHERE username ='" . $username . "'");
 
         if (mysqli_num_rows($result) == 0) {
-            $sql = "INSERT INTO user (name, age, email, nic, username, password) VALUES ('$name','$age','$email','$nic','$username',
-            '$password')";
+            $sql = "INSERT INTO user (name, age, email, nic, username, password, pro_pic) VALUES ('$name','$age','$email','$nic','$username',
+            '$password', '$location')";
 
             if ($conn->query($sql)) {
                 header("Location: login.php");
@@ -65,6 +74,12 @@ if (isset($_POST["Register"])) {
                             <label for="nic" class="col-sm-2 col-form-label">NIC No</label>
                             <div class="col-sm-10">
                                 <input type="text" name="nic" class="form-control" id="nic" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="photo" class="col-sm-2 col-form-label">profile Photo</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="photo" id="photo" required>
                             </div>
                         </div>
                         <div class="mb-3 row">

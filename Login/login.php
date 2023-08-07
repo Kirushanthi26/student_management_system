@@ -20,6 +20,7 @@ if (isset($_POST['login'])) {
       $_SESSION["age"] = $row["age"];
       $_SESSION["email"] = $row["email"];
       $_SESSION["nic"] = $row["nic"];
+      $_SESSION["pro_pic"] = $row["pro_pic"];
 
       if ($row["admin"] == 1) {
         header("Location: ../Admin/admin.php");
