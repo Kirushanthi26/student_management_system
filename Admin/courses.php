@@ -75,6 +75,7 @@ include "../Login/loginHeader.php";
                                 data-bs-toggle="modal" data-bs-target="#deleteCoursesModal<?php echo $row['cid']; ?>">
                                     Delete
                                 </button>
+                                <?php include "coursesModal.php" ?>
                             </td>
                         </tr>
                     <?PHP } ?>
