@@ -45,17 +45,39 @@ include "../Login/loginHeader.php";
                     <th>Course Name</th>
                     <th>Description</th>
                     <th>Duration</th>
-                    <th>Price</th>
+                    <th>Price (Rs.)</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <?php
+                    $query = $conn->query("SELECT * FROM courses ORDER BY cid ASC");
+                    while ($row = $query->fetch_array()) {
+                    ?>
+                        <tr>
+                            <td>
+                                <?php echo $row['cname']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['description']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['duration']; ?>
+                            </td>
+                            <td>
+                                <?php echo number_format($row['price'], 2); ?>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning my-3 " value="<?php echo $row['cid']; ?>" 
+                                data-bs-toggle="modal" data-bs-target="#editCoursesModal<?php echo $row['cid']; ?>">
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-danger my-3 " value="<?php echo $row['cid']; ?>" 
+                                data-bs-toggle="modal" data-bs-target="#deleteCoursesModal<?php echo $row['cid']; ?>">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    <?PHP } ?>
                 </tbody>
             </table>
         </div>
