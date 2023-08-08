@@ -14,20 +14,24 @@ if (isset($_POST["submit"])) {
     header('location:./courses.php');
 }
 
-if(isset($_POST["editSubmit"])){
-    $cEditId= $_POST["cEditId"];
+if (isset($_POST["editSubmit"])) {
+    $cEditId = $_POST["cEditId"];
     $cEditName = $_POST["cEditName"];
     $cEditDescription = $_POST["cEditDescription"];
     $cEditDuration = $_POST["cEditDuration"];
     $cEditPrice = $_POST["cEditPrice"];
 
-    $sql="update courses set cname='$cEditName', price='$cEditPrice', duration='$cEditDuration', description='$cEditDescription' where cid='$cEditId'";
+    $sql = "update courses set cname='$cEditName', price='$cEditPrice', duration='$cEditDuration', description='$cEditDescription' where cid='$cEditId'";
     $conn->query($sql);
     header('location:./courses.php');
 }
 
-if(isset($_POST["deleteSubmit"])){
+if (isset($_POST["deleteSubmit"])) {
+    $cEditId = $_POST["cEditId"];
+    $sql = "delete from courses where cid='$cEditId'";
+    $conn->query($sql);
 
+    header('location:./courses.php');
 }
 ?>
 
@@ -133,12 +137,26 @@ if(isset($_POST["deleteSubmit"])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                <form action="coursesModal.php" method="POST" enctype="multipart/form-data">
+                    <h5 class="text-dark">Do you really want to delete?</h5>
+                    <div class="mb-3 row">
+                        <div class="col-sm-10">
+                            <input type="hidden" name="cEditId" class="form-control" value="<?php echo $row['cid']; ?>" id="Course name" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="Course name" class="col-sm-2 col-form-label text-dark">Course name</label>
+                        <div class="col-sm-10">
+                            <h3 class="text-dark px-3"><?php echo $row['cname']; ?></h3>
+                            <input type="hidden" name="cEditName" class="form-control" value="<?php echo $row['cname']; ?>" id="Course name" required>
+                        </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="deleteSubmit" name="deleteSubmit" class="btn btn-primary">Delete</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
