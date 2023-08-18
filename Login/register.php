@@ -29,7 +29,7 @@ if (isset($_POST["Register"])) {
 
         if (mysqli_num_rows($result) == 0) {
             $sql = "INSERT INTO user (name, age, email, nic, username, password, pro_pic) VALUES ('$name','$age','$email','$nic','$username',
-            '$password', '$location')";
+            MD5('$password'), '$location')";
 
             if ($conn->query($sql)) {
                 header("Location: login.php");

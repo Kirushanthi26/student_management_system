@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
     $result = $conn->query("SELECT * FROM user WHERE username = '" . $username . "' ");
     $row = mysqli_fetch_assoc($result);
 
-    if ($password == isset($row["password"])) {
+    if (MD5('$password') == isset($row["password"])) {
       $_SESSION["username"] = $username;
       $_SESSION["uid"] = $row["uid"];
       $_SESSION["name"] = $row["name"];
